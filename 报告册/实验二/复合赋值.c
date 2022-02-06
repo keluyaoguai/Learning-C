@@ -1,11 +1,12 @@
 #include<stdio.h>
-int main()                    //ä»€ä¹ˆç©æ„ï¼Œç±»å‹é”™äº†å§
+int main()
 {
-    int a=2;
-    a+=a;
-    a-=2;
-    a*=2+3;
-    a/=a+a;
-    printf("ç»“æœä¸º%d",a);
-    return 0;
+  int a=2;
+  a+=a;
+  printf("%d\n",a);
+  a*=2+3;
+  printf("%d\n",a);
+  a/=a+a;          //ÒòÎªÊÇÕûĞÍ£¬Ï´µôĞ¡Êı¾ÍÊ£0ÁË
+  printf("%d\n",a);
+  return 0;
 }
