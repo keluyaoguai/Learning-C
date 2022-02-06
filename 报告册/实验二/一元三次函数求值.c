@@ -1,16 +1,34 @@
-//  #include<stdio.h>                         
-//  int main()
-//  {
-//      int a=0;
-//      int b=0;
-//      int c=0;
-//      double x=0;
-//     //  double x3=0;
-//     //  double x2=0;
-//      scanf("%d%d%d%d",&a,&b,&c,&x);
-//      double e=a*x*x*x;                           //可能是赋值不支持连乘，有时间在改
-//      double f=b*x*x;
-//      double jg=e+f+c;
-//       printf("值为%d",jg);
-//      return 0;
-//  }
+#include<stdio.h>
+float f3(float x)
+{
+    float z=1;    //这里要用浮点内存，如果用整型的话x的浮点属性会被洗掉
+    z=z*x;
+    z=z*x;
+    z=z*x;
+    return z;
+}
+float f2(float x)
+{
+    float z=1;
+    z=z*x;
+    z=z*x;
+    return z;
+}
+int main()
+{
+    printf("请依次输入a，b，c，x\n");
+    float a,b,c,x;
+    scanf("%f%f%f%f",&a,&b,&c,&x);
+    float a1=f3(x);   //c,顺手写成int了，成功洗掉
+    float b1=f2(x);
+    a=a*a1;
+    b=b*b1;
+    float jg=a+b+c;
+    printf("结果为%f",jg);
+    // float a=f3(3);
+    // float b=f3(1.5);
+    // float c=f2(3);
+    // float d=f2(1.5);
+    // printf("%f\n%f\n%f\n%f\n",a,b,c,d);
+    return 0;
+}
