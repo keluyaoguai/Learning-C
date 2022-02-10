@@ -633,6 +633,24 @@
 #include<stdio.h>
 int main()
 {
+    int i;
+    printf("请输入波动幅度：");    //根据那个代码运行产生的图像逆推出来的第一部分代码，基本一致，还算可以
+    scanf("%d",&i);
+    for(int x=0;x<33;x++)
+    {
+        for(int m=0;m<i;m++)
+        {   
+            for(int n=0;n<=m;n++)
+            {printf(" ");}
+            printf("#\n");
+        }
+        for(int m=i;m>0;m--)
+        {   
+            for(int n=m;n>0;n--)
+            {printf(" ");}
+            printf("#\n");
+        }   
+    }
     
     return 0;
 }
