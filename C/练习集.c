@@ -630,27 +630,123 @@
 // }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// #include<stdio.h>
+// int main()
+// {
+//     int i;
+//     printf("请输入波动幅度：");    //根据那个代码运行产生的图像逆推出来的第一部分代码，基本一致，还算可以
+//     scanf("%d",&i);
+//     for(int x=0;x<33;x++)
+//     {
+//         for(int m=0;m<i;m++)
+//         {   
+//             for(int n=0;n<=m;n++)
+//             {printf(" ");}
+//             printf("#\n");
+//         }
+//         for(int m=i;m>0;m--)
+//         {   
+//             for(int n=m;n>0;n--)
+//             {printf(" ");}
+//             printf("#\n");
+//         }   
+//     }
+    
+//     return 0;
+// }
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// #include<stdio.h>                                   //关于字符的输入问题
+// int main()
+// {
+//     int ret=0;
+//     char password[20]={0};                         
+//     printf("请输入密码：");
+//     scanf("%s",password);//这里输入密码后又按了回车，回车也算字符
+
+//     //getchar();//垃圾桶，把多余的字符吸走
+//     //假如密码输入是“1234 ABCD”，空格会导致scanf结束，而第一个getchar只吸走一个空格，所以设置一个循环将它清零
+//     for(int lj;lj != '\n';)//第一次将char lj = getchar()填到第一个空里，导致getchar只运行一次
+//     {
+//         lj = getchar();    //for的第一个空内的语句是只生效一次的
+//     }
+
+//     // int ch;
+//     // while((ch=getchar()) != '\n')
+//     // {
+//     //     ;
+//     // }
+
+//     printf("请确认（Y/N）：\n");
+//     ret=getchar();
+//     if(ret=='Y')
+//         printf("确认成功\n");
+//     else
+//         printf("放弃确认\n");
+//     return 0;
+// }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// #include<stdio.h>
+// int main()
+// {                                      //如果循环条件里是x=0这种非判断，而是赋值的语句的话，等同于一个0，判断为假，不执行
+//     for(int i=1;i<=10;i++)            //一般建议循环变量区间是开区间，某种程度上便于计数，不用去纠结多一少一的问题//for循环原来用的最多啊
+//         printf("%d\n",i);                     //不要在花括号内改变循环变
+//     return 0;                          //不确定循环次数的话，搞一个无限循环让后设置一个break条件就行了
+// }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #include<stdio.h>
 int main()
 {
-    int i;
-    printf("请输入波动幅度：");    //根据那个代码运行产生的图像逆推出来的第一部分代码，基本一致，还算可以
-    scanf("%d",&i);
-    for(int x=0;x<33;x++)
-    {
-        for(int m=0;m<i;m++)
-        {   
-            for(int n=0;n<=m;n++)
-            {printf(" ");}
-            printf("#\n");
-        }
-        for(int m=i;m>0;m--)
-        {   
-            for(int n=m;n>0;n--)
-            {printf(" ");}
-            printf("#\n");
-        }   
-    }
-    
+    char password[6];
+    printf("请输入密码：");
+    scanf("%c",password);
+            for(int ch;ch !='\n';)
+            {
+                ch=getchar();
+            }
+    for(int i=0;i<6;i++)
+        printf("%c\n",password[i]);
     return 0;
 }
+// #include<stdio.h>
+// #define PASSWORD 123456
+// int main()
+// {
+//     char password[20];
+//     for(int c=0;;c++)
+//     {
+//         printf("请输入密码：");
+//         scanf("%c",password);
+//             for(int ch;ch !='\n';)
+//             {
+//                 ch=getchar();
+//             }
+//         pirntf("是否提交(Y/N)：");
+//         char a=getchar;
+//         if(a=='Y')
+//         {
+//             printf("已提交\n");
+//             if(password=='PASSWORD')
+//                 printf("密码正确\n");
+//             else
+//                 {
+//                     int b=2-c;
+//                     printf("密码错误\n您还有%d次机会\n",b);
+//                         if(b==0)
+//                         {
+//                             printf("已错误三次，账号锁定\n");
+//                             break;
+//                         }
+//                 }
+//         }
+//         else
+//         {
+//             printf("放弃提交");
+//             break;
+//         }
+//     }
+    
+//     return 0;
+// }
