@@ -8,7 +8,7 @@
 // {
 //     int x,y,i,j,v_x,v_y;
 //     printf("«Î ‰»Îx£¨y£¨v_x”Îv_y\n");
-//     scanf("%d%d",&x,&y,&v_x,&v_y);
+//     scanf("%d%d%d%d",&x,&y,&v_x,&v_y);
 //         for(int k=0;k<100;k++)
 //         {
 //             system("cls");
