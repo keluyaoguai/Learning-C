@@ -2,15 +2,23 @@
 #include<stdlib.h>//system函数的头文件
 #include<windows.h>//sleep函数的头文件
 #include<conio.h>//getch函数真好用//kbhit函数也行
-////////////////////////////////////////////////////////////////////////////////发射子弹的飞机，
+/////////////////////////////////////////////////////////有一个靶子供射击的小飞机
 int main()                                                                                      
 {
     int x=5,y=10,i,j,k;//这些不要在循环体里定义，不然变化后的变量在下一个循环会被重置
     char input;
-    int shout;
+    int shout,kill=0,bz=7,score=0;
     while(1)
     {
         system("cls");
+        //下面是显示靶子
+        if(kill==0)
+            {
+                for(i=0;i<bz;i++)
+                    printf(" ");
+                printf("(X)\n");
+            }
+        //下面是显示子弹
         if(shout==1)
         {
             for(i=0;i<x;i++)
@@ -20,7 +28,10 @@ int main()
                     printf("  o\n");
                 }
             shout=0;//将其归零，以便下一次输入
+            if(bz==(y+1))//判定子弹是否击中靶子
+                {kill=1;score++;}
         }
+        //下面是显示机身
         else
             for(i=0;i<x;i++)
                 printf("\n");
@@ -33,7 +44,8 @@ int main()
         for(j=0;j<y;j++)
             printf(" ");
         printf(" ! !\n");//输出机尾
-        printf("纵:%d横:%d",x,y);
+        printf("纵:%d横:%d 分数：%d",x,y,score);
+        //下面是处理键盘输入
         if(kbhit())//当键盘无输入时跳过，进入下次循环，达到没有输入就在原地不断刷新的效果
         {
             input = getch();
@@ -59,6 +71,63 @@ int main()
     printf("DROP OUT\n");
     return 0;
 }
+////////////////////////////////////////////////////////////////////////////////发射子弹的飞机，
+// int main()                                                                                      
+// {
+//     int x=5,y=10,i,j,k;//这些不要在循环体里定义，不然变化后的变量在下一个循环会被重置
+//     char input;
+//     int shout;
+//     while(1)
+//     {
+//         system("cls");
+//         if(shout==1)
+//         {
+//             for(i=0;i<x;i++)
+//                 {
+//                     for(k=0;k<y;k++)//在纵坐标超过50左右射击会卡住,大概是嵌套循环的控制变量一样导致的，将i改为k就解决了
+//                         printf(" ");
+//                     printf("  o\n");
+//                 }
+//             shout=0;//将其归零，以便下一次输入
+//         }
+//         else
+//             for(i=0;i<x;i++)
+//                 printf("\n");
+//         for(j=0;j<y;j++)
+//             printf(" ");//抵达横向坐标
+//         printf("  A\n");//输出机头
+//         for(j=0;j<y;j++)
+//             printf(" ");
+//         printf("=====\n"); //输出机身
+//         for(j=0;j<y;j++)
+//             printf(" ");
+//         printf(" ! !\n");//输出机尾
+//         printf("纵:%d横:%d",x,y);
+//         if(kbhit())//当键盘无输入时跳过，进入下次循环，达到没有输入就在原地不断刷新的效果
+//         {
+//             input = getch();
+//             if(input=='w')//向上
+//                 x--;
+//             if(input=='s')//向下
+//                 x++;
+//             if(input=='a')//向左
+//                 y--;
+//             if(input=='d')//向右
+//                 y++;
+//             if(input==' ')
+//                 shout = 1;
+//             if(x<0||y<0)//撞墙结束游戏
+//                 {
+//                     printf("Game Over\n");
+//                     break;
+//                 }
+//             if(input=='p')//添加一个退出功能
+//                 break;
+//         }
+//     }
+//     printf("DROP OUT\n");
+//     return 0;
+// }
 //////////////////////////////////////////////////通过getch函数使得飞机可以连续位移
 // int main()
 // {
