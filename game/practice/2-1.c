@@ -1,111 +1,136 @@
 #include<stdio.h>
-#include<stdlib.h>//systemº¯Êı
-#include<conio.h>//getchº¯ÊıÓëkbhitº¯Êı
-#include<Windows.h>//
-int x,y,input,IfShoot,Top,Bottom;
-//¹â±êÒÆ¶¯µ½(x,y)Î»ÖÃ
-void gotoxy(int x,int y)
+#include<stdlib.h>//systemå‡½æ•°
+#include<conio.h>//getchå‡½æ•°ä¸kbhitå‡½æ•°
+#include<Windows.h>//å…‰æ ‡ç§»åŠ¨é‚£ä¸ªå‡½æ•°
+int x,y,input,IfShoot,IfDead,v,bz,Top=0,Bottom=20,Left=0,Right=80,Score,Death,Power,Defaulty,Speed=0;
+//åˆå§‹åŒ–å‡½æ•°
+void Start()
+{
+    x=Right/2;
+    y=Bottom/2;
+    bz=x;
+    v=1;
+    IfShoot=0;
+    IfDead=0;
+}
+void HideCursor() // ç”¨äºéšè—å…‰æ ‡
+{
+	CONSOLE_CURSOR_INFO cursor_info = {1, 0};  // ç¬¬äºŒä¸ªå€¼ä¸º0è¡¨ç¤ºéšè—å…‰æ ‡
+	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
+}
+
+//å°†å…‰æ ‡ç§»åŠ¨åˆ°æŒ‡å®šåæ ‡çš„å‡½æ•°
+void gotoxy(int x,int y)//ä¸€æ­¥åˆ°ä½ï¼Œè·³è·ƒæ¯”è¿ç»­çœäº‹å¤šäº†
 {
     HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD pos;
-    pos.X = x;
+    pos.X = x;//ä»æ§åˆ¶å°è¾“å‡ºçš„æ˜¯åçš„
     pos.Y = y;
     SetConsoleCursorPosition(handle,pos);
 }
-
-//³õÊ¼»¯
-void Start()
+//åˆ·æ–°ç•Œé¢çš„å‡½æ•°
+void Refresh()
 {
-    Top= 20;
-    Bottom= 40;
-    x=10;
-    y=20;
+    gotoxy(1,1);
+    int j,k;
+    for(j=0;j<Bottom;j++)
+    {
+        for(k=0;k<Right;k++)
+            printf(" ");
+        printf("\n");
+    }
 }
-//¶¨Òå¼üÅÌÊäÈëµÄĞ§¹ûµÄ
+//å­å¼¹è¾“å‡ºå‡½æ•°
+void Shoot(int x,int y)
+{
+    for(int i=0;i<y;i++)
+    {
+        gotoxy(x,y-i-1);
+        printf("  :");
+    }
+    IfShoot=0;
+}
+//æ˜¾ç¤ºé£æœºçš„å‡½æ•°
+void CreatWarplane(int x,int y)
+{
+    gotoxy(x,y);
+    printf("  A");
+    gotoxy(x,y+1);
+    printf("-===-");
+    gotoxy(x,y+2);
+    printf(" W W");
+    gotoxy(0,y+4);
+    printf("Score:%d Defaulty:%d",Score,Defaulty);
+}
+//å®šä¹‰é”®ç›˜è¾“å…¥çš„æ•ˆæœçš„
 void ConductingInput()
 {
-    if(kbhit())//µ±¼üÅÌÎŞÊäÈëÊ±Ìø¹ı£¬½øÈëÏÂ´ÎÑ­»·£¬´ïµ½Ã»ÓĞÊäÈë¾ÍÔÚÔ­µØ²»¶ÏË¢ĞÂµÄĞ§¹û
+    if(kbhit())//å½“é”®ç›˜æ— è¾“å…¥æ—¶è·³è¿‡ï¼Œè¿›å…¥ä¸‹æ¬¡å¾ªç¯ï¼Œè¾¾åˆ°æ²¡æœ‰è¾“å…¥å°±åœ¨åŸåœ°ä¸æ–­åˆ·æ–°çš„æ•ˆæœ
     {
         input = getch();
-        if(input=='w')//ÏòÉÏ
-            x--;
-        if(input=='s')//ÏòÏÂ
-            x++;
-        if(input=='a')//Ïò×ó
+        if(input=='w'&&y>1)//å‘ä¸Š
             y--;
-        if(input=='d')//ÏòÓÒ
+        if(input=='s'&&y<Bottom)//å‘ä¸‹
             y++;
+        if(input=='a'&&x>1)//å‘å·¦
+            x--;
+        if(input=='d'&&x<Right)//å‘å³
+            x++;
         if(input==' ')
             IfShoot = 1;
     }
 }
-//ÒÆ¶¯¹â±êµ½Ö¸¶¨ºá×ø±êµÄº¯Êı
-void ToThisPoint(int y)
+void MyAction()
 {
-    for(int j=0;j<y;j++)
-        {
-            printf(" ");
-        }
-}
-//½«¹â±êÒÆ¶¯µ½Ö¸¶¨×ø±êµÄº¯Êı
-void ToThisPosition(int x,int y)
-{
-    for(int i=0;i<x;i++)
-        {
-            ToThisPoint(y);
-            printf("\n");//ÒòÎªË³ĞòµÄÔ­Òò£¬Ö¸»Óµ½´ïÖ¸¶¨×İ×ø±ê£¬ºá×ø±êÖ»ÓĞÔÚÔË¶¯µÄ¹ı³ÌÖĞÄÜµ½´ï
-        }
-}
-//ÔÚÖ¸¶¨ºá×ø±êÏÔÊ¾×Óµ¯µÄ
-void ShootingHere(int x,int y)
-{
-    if(IfShoot == 1)
-       {
-           for(int i=0;i<(x-1);i++)
+        CreatWarplane(x,y);
+        if(IfShoot==1)
             {
-                ToThisPoint(y);
-                printf("  I\n");
+                Shoot(x,y);
+                if(bz==x+3)
+                {
+                    IfDead=1;
+                    Score++;
+                    Defaulty++;
+                }
             }
-            IfShoot = 0;
-       }
+        ConductingInput();
 }
-//ÏÔÊ¾·É»úµÄ
-void CreatWarplane(int y)
+void ItsAction()
 {
-    ToThisPoint(y);
-    printf("  A\n");
-    ToThisPoint(y);
-    printf("-===-\n");
-    ToThisPoint(y);
-    printf(" W W\n");
-}
-//ÔÚÖ¸¶¨×ø±êÏÔÊ¾·É»úµÄ
-void CreatWarplaneHere(int x,int y)
-{
-    ToThisPosition(x,y);
-    ToThisPoint(y);
-    printf("  A\n");
-    ToThisPoint(y);
-    printf("-===-\n");
-    ToThisPoint(y);
-    printf(" W W\n");
+    if(IfDead==1)
+        {
+            bz=rand()%41;
+            Death++;//å¤æ´»å€’è®¡æ—¶
+            if(Death==10)
+                {IfDead=0;
+                 Death=0;}
+        }
+    if(IfDead==0)    //åˆ¤å®šæ˜¯å¦æ˜¾ç¤º
+        {
+            gotoxy(bz,1);
+            printf("*");    //æ˜¾ç¤ºé¶å­
+            Power++;
+            if(Defaulty%5==0&&10-Speed>1)
+                Speed++;
+            if(Power>10-Speed)//ä½¿é¶å­åæ¬¡å¾ªç¯ç§»åŠ¨ä¸€æ¬¡
+            {
+                bz=bz+v;    //ä½¿é¶å­è¿åŠ¨
+                Power=0;
+                if(bz<Left||bz>Right)
+                    v=-v;  
+            }
+        }
 }
 int main()
 {
     Start();
-    while(1)
+    for(;;)
     {
         system("cls");
-        //gotoxy(0,0);
-        if(IfShoot==1)
-        {
-            ShootingHere(x,y);
-            CreatWarplane(y);
-        }
-        else
-            CreatWarplaneHere(x,y);
-        //sleep(1);
-        ConductingInput();
+        HideCursor();
+        //Refresh();
+        MyAction();
+        ItsAction();
     }
     return 0;
 }
